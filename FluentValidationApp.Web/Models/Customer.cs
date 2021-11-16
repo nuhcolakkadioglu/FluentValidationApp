@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FluentValidationApp.Web.Models
 {
@@ -8,5 +9,7 @@ namespace FluentValidationApp.Web.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public int Age { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime      BirthDay { get; set; }
     }
 }

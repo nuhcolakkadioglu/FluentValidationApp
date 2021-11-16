@@ -9,22 +9,30 @@ namespace FluentValidationApp.Web.FluentValidators
 {
     public class CustomerValidator : AbstractValidator<Customer>
     {
+        public string NotEmptyMessage { get; } = "{PropertyName} alanı boş olamaz";
         public CustomerValidator()
         {
             RuleFor(m => m.Name)
                 .NotEmpty()
-                .WithMessage("name alanı boş olamaz");
+                .WithMessage(NotEmptyMessage);
 
             RuleFor(m => m.Email)
                 .NotEmpty()
-                .WithMessage("email alanı boş olamaz")
+                .WithMessage(NotEmptyMessage)
                 .EmailAddress().WithMessage("geçerli bir email adresi giriniz");
 
             RuleFor(m => m.Age)
                 .NotEmpty()
-                .WithMessage("yaş alanı boş oalamaz")
-                .ExclusiveBetween(18, 60).WithMessage("yaş aralıgı 18 ile 60 arasında olmalıdır"); 
+                .WithMessage(NotEmptyMessage)
+                .ExclusiveBetween(18, 60).WithMessage("yaş aralıgı 18 ile 60 arasında olmalıdır");
 
+            RuleFor(m => m.BirthDay)
+                .NotEmpty()
+                .WithMessage(NotEmptyMessage)
+                .Must(m =>
+                {
+                    return DateTime.Now.AddYears(-18) >= m;
+                }).WithMessage("yaşınız 18 den küçük");
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿@model FluentValidationApp.Web.Models.Customer
 
-
+<h2>Create</h2>
 <div class="row">
-    <h2>Create</h2>
 
-    <div class="col-md-8">
+
+    <div class="col-md-6">
 
         <form asp-action="Create">
             <div class="form-group">
@@ -22,9 +22,19 @@
                 <input asp-for="Age" class="form-control" />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="BirthDay"></label>
+                <input asp-for="BirthDay" class="form-control" />
+                <span asp-validation-for="BirthDay" class="text-danger"></span>
+            </div>
 
             <input type="submit" class="btn btn-primary" value="Kaydet" />
         </form>
 
     </div>
 </div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js" integrity="sha512-XZEy8UQ9rngkxQVugAdOuBRDmJ5N4vCuNXCh8KlniZgDKTvf7zl75QBtaVG1lEhMFe2a2DuA22nZYY+qsI2/xA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}
