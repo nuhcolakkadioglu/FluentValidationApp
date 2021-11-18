@@ -22,11 +22,25 @@
                 <input asp-for="Age" class="form-control" />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="BirthDay"></label>
-                <input asp-for="BirthDay" class="form-control" />
-                <span asp-validation-for="BirthDay" class="text-danger"></span>
-            </div>
+
+            @for (int i = 0; i < 2; i++)
+            {
+                <div class="form-group">
+                    <label asp-for="Addresses[i].Content"></label>
+                    <input asp-for="Addresses[i].Content" class="form-control" />
+                    <span asp-validation-for="Addresses[i].Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Addresses[i].Province"></label>
+                    <input asp-for="Addresses[i].Province" class="form-control" />
+                    <span asp-validation-for="Addresses[i].Province" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Addresses[i].PostCode"></label>
+                    <input asp-for="Addresses[i].PostCode" class="form-control" />
+                    <span asp-validation-for="Addresses[i].PostCode" class="text-danger"></span>
+                </div>
+            }
 
             <input type="submit" class="btn btn-primary" value="Kaydet" />
         </form>
@@ -36,5 +50,6 @@
 
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js" integrity="sha512-XZEy8UQ9rngkxQVugAdOuBRDmJ5N4vCuNXCh8KlniZgDKTvf7zl75QBtaVG1lEhMFe2a2DuA22nZYY+qsI2/xA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
 }

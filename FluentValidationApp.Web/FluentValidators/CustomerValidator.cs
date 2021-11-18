@@ -2,6 +2,7 @@
 using FluentValidationApp.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,11 +11,13 @@ namespace FluentValidationApp.Web.FluentValidators
     public class CustomerValidator : AbstractValidator<Customer>
     {
         public string NotEmptyMessage { get; } = "{PropertyName} alanı boş olamaz";
+
         public CustomerValidator()
         {
+
+
             RuleFor(m => m.Name)
-                .NotEmpty()
-                .WithMessage(NotEmptyMessage);
+                .NotEmpty();
 
             RuleFor(m => m.Email)
                 .NotEmpty()
@@ -33,6 +36,9 @@ namespace FluentValidationApp.Web.FluentValidators
                 {
                     return DateTime.Now.AddYears(-18) >= m;
                 }).WithMessage("yaşınız 18 den küçük");
+
+            RuleForEach(m => m.Addresses).SetValidator(new AddressValidator());
+
         }
     }
 }

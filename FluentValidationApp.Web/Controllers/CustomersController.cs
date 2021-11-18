@@ -1,4 +1,5 @@
-﻿using FluentValidationApp.Web.Models;
+﻿using FluentValidation;
+using FluentValidationApp.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,11 @@ namespace FluentValidationApp.Web.Controllers
     public class CustomersController : Controller
     {
         private readonly AppDbContext _context;
-
-        public CustomersController(AppDbContext appDbContext)
+        private readonly IValidator<Customer> _validator;
+         public CustomersController(AppDbContext appDbContext, IValidator<Customer> validator)
         {
             _context = appDbContext;
+            _validator = validator;
         }
         public async Task<ActionResult> Index()
         {
@@ -25,6 +27,9 @@ namespace FluentValidationApp.Web.Controllers
         // GET: CustomersController/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+
+         
+
             if (id == null)
             {
                 return NotFound();
@@ -48,20 +53,39 @@ namespace FluentValidationApp.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Customer customer)
         {
-            if (ModelState.IsValid)
-            {
+            var result = _validator.Validate(customer);
 
-                try
+            if (result.IsValid)
+            {
                 {
-                    _context.Customers.Add(customer);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception ex)
-                {
-                    return View(ex.Message);
+
+                    try
+                    {
+                        _context.Customers.Add(customer);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (Exception ex)
+                    {
+                        return View(ex.Message);
+                    }
                 }
             }
+            // bu şekildede kullanabilrisn 
+            //if (ModelState.IsValid)
+            //{
+
+            //    try
+            //    {
+            //        _context.Customers.Add(customer);
+            //        await _context.SaveChangesAsync();
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        return View(ex.Message);
+            //    }
+            //}
             return View(customer);
         }
 
